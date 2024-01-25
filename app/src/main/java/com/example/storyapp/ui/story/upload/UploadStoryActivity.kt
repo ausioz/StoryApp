@@ -102,6 +102,7 @@ class UploadStoryActivity : AppCompatActivity() {
                     if (!response.error) {
                         Toast.makeText(this, response.message, Toast.LENGTH_SHORT).show()
                         startActivity(Intent(this, MainActivity::class.java))
+                        finish()
                     }
                 }
             }
