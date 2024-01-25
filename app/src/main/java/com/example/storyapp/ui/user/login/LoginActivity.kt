@@ -20,7 +20,7 @@ import com.example.storyapp.ui.customview.LoadingDialogFragment
 
 class LoginActivity : AppCompatActivity() {
     private val viewModel by viewModels<LoginViewModel> {
-        ViewModelFactory.getInstance(this)
+        ViewModelFactory.getInstance(this,application)
     }
     private lateinit var binding: ActivityLoginBinding
     private val loadingDialog = LoadingDialogFragment()

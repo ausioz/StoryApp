@@ -18,7 +18,7 @@ import com.example.storyapp.ui.user.register.RegisterActivity
 
 class WelcomeActivity : AppCompatActivity() {
     private val viewModel by viewModels<MainViewModel> {
-        ViewModelFactory.getInstance(this)
+        ViewModelFactory.getInstance(this,application)
     }
     private lateinit var binding: ActivityWelcomeBinding
 

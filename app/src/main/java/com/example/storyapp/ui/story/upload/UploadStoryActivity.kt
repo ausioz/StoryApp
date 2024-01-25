@@ -28,7 +28,7 @@ class UploadStoryActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityUploadStoryBinding
     private val viewModel by viewModels<UploadStoryViewModel> {
-        ViewModelFactory.getInstance(this)
+        ViewModelFactory.getInstance(this,application)
     }
     private var currentImageUri: Uri? = null
     private val loadingDialog = LoadingDialogFragment()

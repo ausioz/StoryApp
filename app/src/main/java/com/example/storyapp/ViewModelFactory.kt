@@ -1,5 +1,6 @@
 package com.example.storyapp
 
+import android.app.Application
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -10,13 +11,13 @@ import com.example.storyapp.ui.story.upload.UploadStoryViewModel
 import com.example.storyapp.ui.user.login.LoginViewModel
 import com.example.storyapp.ui.user.register.RegisterViewModel
 
-class ViewModelFactory(private val repository: Repository) : ViewModelProvider.NewInstanceFactory() {
+class ViewModelFactory(private val repository: Repository, private val application: Application) : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
             modelClass.isAssignableFrom(MainViewModel::class.java) -> {
-                MainViewModel(repository) as T
+                MainViewModel(repository,application) as T
             }
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
                 LoginViewModel(repository) as T
@@ -35,10 +36,10 @@ class ViewModelFactory(private val repository: Repository) : ViewModelProvider.N
         @Volatile
         private var INSTANCE: ViewModelFactory? = null
         @JvmStatic
-        fun getInstance(context: Context): ViewModelFactory {
+        fun getInstance(context: Context, application: Application): ViewModelFactory {
             if (INSTANCE == null) {
                 synchronized(ViewModelFactory::class.java) {
-                    INSTANCE = ViewModelFactory(Injection.provideRepository(context))
+                    INSTANCE = ViewModelFactory(Injection.provideRepository(context),application)
                 }
             }
             return INSTANCE as ViewModelFactory
