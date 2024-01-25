@@ -82,7 +82,7 @@ class EmailEditTextView : AppCompatEditText, View.OnTouchListener {
     ) {
         super.onTextChanged(text, start, lengthBefore, lengthAfter)
         if (!isEmailValid(text)) {
-            setError("Email tidak valid", null)
+            setError(context.getString(R.string.email_tidak_valid), null)
         } else {
             error = null
         }

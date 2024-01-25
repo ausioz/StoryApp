@@ -81,6 +81,7 @@ class RegisterActivity : AppCompatActivity() {
             repeatMode = ObjectAnimator.REVERSE
         }.start()
 
+        val textView = ObjectAnimator.ofFloat(binding.titleTextView, View.ALPHA, 1f).setDuration(500)
         val nameET = ObjectAnimator.ofFloat(binding.nameEditText, View.ALPHA, 1f).setDuration(500)
         val nameTL =
             ObjectAnimator.ofFloat(binding.nameEditTextLayout, View.ALPHA, 1f).setDuration(500)
@@ -105,7 +106,7 @@ class RegisterActivity : AppCompatActivity() {
             playTogether(mailET, mailTL, mailTV)
         }
         val passTogether = AnimatorSet().apply {
-            playTogether(passET, passTL, passTV)
+            playTogether(textView,passET, passTL, passTV)
         }
 
 

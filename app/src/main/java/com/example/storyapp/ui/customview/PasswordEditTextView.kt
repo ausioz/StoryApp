@@ -74,7 +74,7 @@ class PasswordEditTextView : AppCompatEditText,  View.OnTouchListener {
     ) {
         super.onTextChanged(text, start, lengthBefore, lengthAfter)
         if (text.toString().length < 8) {
-            setError("Password tidak boleh kurang dari 8 karakter", null)
+            setError(context.getString(R.string.password_tidak_boleh_kurang_dari_8_karakter), null)
         } else {
             error = null
         }

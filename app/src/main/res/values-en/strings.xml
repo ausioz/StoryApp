@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">StoryApp</string>
+    <string name="signup">SignUp</string>
+    <string name="login">Login</string>
+    <string name="message_welcome_page">Want to learn Android, iOS, Machine Learning, Cloud, Front-End, Back-End, and other IT fields? Just code it!</string>
+    <string name="title_welcome_page">Welcome to Dicoding!</string>
+    <string name="title_signup_page">Please Complete your data below</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="message_login_page">Please enter your data first</string>
+    <string name="title_login_page">Ready to upgrade your skill</string>
+    <string name="name">Name</string>
+    <string name="greeting">Hello %1$s,</string>
+    <string name="logout">Logout</string>
+    <string name="loading">Loading..</string>
+    <string name="isi_dulu">Input first</string>
+    <string name="kirim">Send</string>
+    <string name="pengguna">User</string>
+    <string name="deskripsi">Description</string>
+    <string name="gambar_login">Image on login page</string>
+    <string name="gambar_register">Image on register page</string>
+    <string name="gambar_selamat_datang">Image on welcome page</string>
+    <string name="gambar_detail_story">Image on story detail page</string>
+    <string name="kamera">Camera</string>
+    <string name="unggah">Upload</string>
+    <string name="galeri">Gallery</string>
+    <string name="gambar_upload_story">Image preview to send story</string>
+    <string name="tombol_ambil_gambar">Button to take image</string>
+    <string name="tombol_ganti_kamera">Button to switch front/rear camera</string>
+    <string name="masukan_berkas_gambar">Please input story file first</string>
+    <string name="floating_action_button">Button to go to upload story page</string>
+    <string name="email_tidak_valid">Email not valid</string>
+    <string name="password_tidak_boleh_kurang_dari_8_karakter">Password cannot less than 8 characters</string>
+</resources>
