@@ -7,12 +7,12 @@
     tools:context=".ui.user.register.RegisterActivity">
 
     <ImageView
-        android:contentDescription="@string/gambar_register"
         android:id="@+id/imageView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
+        android:contentDescription="@string/gambar_register"
         app:layout_constraintBottom_toTopOf="@+id/guidelineHorizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,6 +58,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:alpha="0"
+        app:endIconMode="clear_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameTextView"
@@ -150,8 +151,6 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.example.storyapp.ui.customview.ButtonView
-        android:textAllCaps="false"
-        android:enabled="false"
         android:id="@+id/registerButton"
         android:layout_width="0dp"
         android:layout_height="50dp"
@@ -159,7 +158,9 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:alpha="0"
+        android:enabled="false"
         android:text="@string/signup"
+        android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordEditTextLayout"

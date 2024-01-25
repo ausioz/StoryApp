@@ -2,6 +2,7 @@ package com.example.storyapp.ui.user.register
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.core.widget.addTextChangedListener
 import com.example.storyapp.ViewModelFactory
 import com.example.storyapp.databinding.ActivityRegisterBinding
 import com.example.storyapp.ui.customview.LoadingDialogFragment
+import com.example.storyapp.ui.welcome.WelcomeActivity
 
 class RegisterActivity : AppCompatActivity() {
     private val viewModel by viewModels<RegisterViewModel> {
@@ -29,6 +31,7 @@ class RegisterActivity : AppCompatActivity() {
         viewModel.registerData.observe(this) {
             if (it.error == false) {
                 Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this,WelcomeActivity::class.java))
             }
         }
 

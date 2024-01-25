@@ -14,8 +14,8 @@ import com.example.storyapp.R
 
 class PasswordEditTextView : AppCompatEditText,  View.OnTouchListener {
     private lateinit var clearButtonImage: Drawable
-    constructor(context: Context) : super(context)
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
+    constructor(context: Context) : super(context) {init()}
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {init()}
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
         init()
     }

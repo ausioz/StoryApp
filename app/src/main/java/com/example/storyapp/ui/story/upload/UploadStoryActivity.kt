@@ -10,7 +10,6 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.net.toUri
-import androidx.lifecycle.lifecycleScope
 import com.example.storyapp.R
 import com.example.storyapp.ViewModelFactory
 import com.example.storyapp.databinding.ActivityUploadStoryBinding
@@ -20,7 +19,6 @@ import com.example.storyapp.ui.story.upload.CameraActivity.Companion.CAMERAX_RES
 import com.example.storyapp.ui.story.upload.CameraActivity.Companion.EXTRA_CAMERAX_IMAGE
 import com.example.storyapp.ui.story.reduceFileImage
 import com.example.storyapp.ui.story.uriToFile
-import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
