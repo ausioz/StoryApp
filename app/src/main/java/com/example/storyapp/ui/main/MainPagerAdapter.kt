@@ -33,7 +33,7 @@ class MainPagerAdapter : ListAdapter<ListStoryItem, MainPagerAdapter.ViewHolder>
                         Pair(binding.userTV, "name"),
                         Pair(binding.descriptionTV, "description")
                     )
-                itemView.context.startActivity(intent,optionCompat.toBundle())
+                itemView.context.startActivity(intent, optionCompat.toBundle())
             }
         }
     }

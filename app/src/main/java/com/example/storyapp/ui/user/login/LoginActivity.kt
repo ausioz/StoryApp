@@ -20,7 +20,7 @@ import com.example.storyapp.ui.customview.LoadingDialogFragment
 
 class LoginActivity : AppCompatActivity() {
     private val viewModel by viewModels<LoginViewModel> {
-        ViewModelFactory.getInstance(this,application)
+        ViewModelFactory.getInstance(this, application)
     }
     private lateinit var binding: ActivityLoginBinding
     private val loadingDialog = LoadingDialogFragment()
@@ -93,7 +93,7 @@ class LoginActivity : AppCompatActivity() {
     private fun showLoading(isLoading: Boolean) {
         loadingDialog.isCancelable = false
         if (isLoading) {
-           loadingDialog.show(supportFragmentManager, "loadingDialog")
+            loadingDialog.show(supportFragmentManager, "loadingDialog")
         } else {
             if (loadingDialog.isVisible) loadingDialog.dismiss()
         }

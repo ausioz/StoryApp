@@ -92,32 +92,26 @@ class CameraActivity : AppCompatActivity() {
         val imageCapture = imageCapture ?: return
         val photoFile = createCustomTempFile(application)
         val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
-        imageCapture.takePicture(
-            outputOptions,
+        imageCapture.takePicture(outputOptions,
             ContextCompat.getMainExecutor(this),
             object : ImageCapture.OnImageSavedCallback {
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
                     val intent = Intent()
                     intent.putExtra(EXTRA_CAMERAX_IMAGE, output.savedUri.toString())
-                    setResult(CAMERAX_RESULT,intent)
+                    setResult(CAMERAX_RESULT, intent)
                     Toast.makeText(
-                        this@CameraActivity,
-                        "Berhasil mengambil gambar.",
-                        Toast.LENGTH_SHORT
+                        this@CameraActivity, "Berhasil mengambil gambar.", Toast.LENGTH_SHORT
                     ).show()
                     finish()
                 }
 
                 override fun onError(exc: ImageCaptureException) {
                     Toast.makeText(
-                        this@CameraActivity,
-                        "Gagal mengambil gambar.",
-                        Toast.LENGTH_SHORT
+                        this@CameraActivity, "Gagal mengambil gambar.", Toast.LENGTH_SHORT
                     ).show()
                     Log.e(TAG, "onError: ${exc.message}")
                 }
-            }
-        )
+            })
     }
 
     private val orientationEventListener by lazy {
@@ -136,10 +130,12 @@ class CameraActivity : AppCompatActivity() {
             }
         }
     }
+
     override fun onStart() {
         super.onStart()
         orientationEventListener.enable()
     }
+
     override fun onStop() {
         super.onStop()
         orientationEventListener.disable()
@@ -157,7 +153,7 @@ class CameraActivity : AppCompatActivity() {
         supportActionBar?.hide()
     }
 
-    companion object{
+    companion object {
         private const val TAG = "CameraActivity"
         const val EXTRA_CAMERAX_IMAGE = "CameraX Image"
         const val CAMERAX_RESULT = 200

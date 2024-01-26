@@ -8,7 +8,7 @@ import com.example.storyapp.data.local.entity.StoryListEntity
 
 @Database(entities = [StoryListEntity::class], version = 1, exportSchema = false)
 
-abstract class StoryDatabase:RoomDatabase() {
+abstract class StoryDatabase : RoomDatabase() {
     abstract fun storyDao(): StoryDao
 
     companion object {

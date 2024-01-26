@@ -11,14 +11,10 @@ class LoadingDialogFragment : DialogFragment() {
     private lateinit var binding: DialogLoadingLayoutBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
         binding = DialogLoadingLayoutBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
-
-
-
 }

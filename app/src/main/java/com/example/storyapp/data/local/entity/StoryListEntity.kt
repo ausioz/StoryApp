@@ -11,12 +11,8 @@ import java.util.UUID
 @Parcelize
 @Entity(tableName = "storylist")
 data class StoryListEntity(
-    @PrimaryKey(autoGenerate = true)
-    var id:Int = 0,
-    @ColumnInfo(name = "name")
-    var name: String? = null,
-    @ColumnInfo(name = "photoUrl")
-    var photoUrl: String? = null,
-    @ColumnInfo(name = "description")
-    var description: String? = null,
+    @PrimaryKey(autoGenerate = true) var id: Int = 0,
+    @ColumnInfo(name = "name") var name: String? = null,
+    @ColumnInfo(name = "photoUrl") var photoUrl: String? = null,
+    @ColumnInfo(name = "description") var description: String? = null,
 ) : Parcelable

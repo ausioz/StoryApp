@@ -58,10 +58,10 @@ class MainViewModel(private val repository: Repository, private val application:
                             db.storyDao().deleteAll()
                             _listStory.value?.listStory?.forEach { story ->
                                 db.storyDao().insertList(
-                                        StoryListEntity(
-                                            0,story.name, story.photoUrl, story.description
-                                        )
+                                    StoryListEntity(
+                                        0, story.name, story.photoUrl, story.description
                                     )
+                                )
                             }
                         }
                     }

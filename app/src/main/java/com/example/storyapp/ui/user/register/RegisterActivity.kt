@@ -16,7 +16,7 @@ import com.example.storyapp.ui.welcome.WelcomeActivity
 
 class RegisterActivity : AppCompatActivity() {
     private val viewModel by viewModels<RegisterViewModel> {
-        ViewModelFactory.getInstance(this,application)
+        ViewModelFactory.getInstance(this, application)
     }
     private lateinit var binding: ActivityRegisterBinding
     private val loadingDialog = LoadingDialogFragment()
@@ -31,7 +31,7 @@ class RegisterActivity : AppCompatActivity() {
         viewModel.registerData.observe(this) {
             if (it.error == false) {
                 Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this,WelcomeActivity::class.java))
+                startActivity(Intent(this, WelcomeActivity::class.java))
             }
         }
 
@@ -81,7 +81,8 @@ class RegisterActivity : AppCompatActivity() {
             repeatMode = ObjectAnimator.REVERSE
         }.start()
 
-        val textView = ObjectAnimator.ofFloat(binding.titleTextView, View.ALPHA, 1f).setDuration(500)
+        val textView =
+            ObjectAnimator.ofFloat(binding.titleTextView, View.ALPHA, 1f).setDuration(500)
         val nameET = ObjectAnimator.ofFloat(binding.nameEditText, View.ALPHA, 1f).setDuration(500)
         val nameTL =
             ObjectAnimator.ofFloat(binding.nameEditTextLayout, View.ALPHA, 1f).setDuration(500)
@@ -106,7 +107,7 @@ class RegisterActivity : AppCompatActivity() {
             playTogether(mailET, mailTL, mailTV)
         }
         val passTogether = AnimatorSet().apply {
-            playTogether(textView,passET, passTL, passTV)
+            playTogether(textView, passET, passTL, passTV)
         }
 
 

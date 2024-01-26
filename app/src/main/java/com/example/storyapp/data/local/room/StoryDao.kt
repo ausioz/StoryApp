@@ -7,6 +7,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.storyapp.data.local.entity.StoryListEntity
+
 @Dao
 interface StoryDao {
     @Insert(onConflict = OnConflictStrategy.NONE)
@@ -14,6 +15,7 @@ interface StoryDao {
 
     @Query("Delete FROM storylist")
     fun deleteAll()
+
     @Query("SELECT * FROM storylist")
     fun getList(): LiveData<List<StoryListEntity>>
 

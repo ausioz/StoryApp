@@ -18,7 +18,7 @@ import com.example.storyapp.ui.user.register.RegisterActivity
 
 class WelcomeActivity : AppCompatActivity() {
     private val viewModel by viewModels<MainViewModel> {
-        ViewModelFactory.getInstance(this,application)
+        ViewModelFactory.getInstance(this, application)
     }
     private lateinit var binding: ActivityWelcomeBinding
 
@@ -31,15 +31,15 @@ class WelcomeActivity : AppCompatActivity() {
         setupAction()
         playAnimation()
 
-        viewModel.getSession().observe(this){
-            if (it.isLogin){
+        viewModel.getSession().observe(this) {
+            if (it.isLogin) {
                 finish()
             }
         }
     }
 
     private fun playAnimation() {
-        ObjectAnimator.ofFloat(binding.imageView, View.TRANSLATION_X, -30f,30f).apply {
+        ObjectAnimator.ofFloat(binding.imageView, View.TRANSLATION_X, -30f, 30f).apply {
             duration = 3000
             repeatCount = ObjectAnimator.INFINITE
             repeatMode = ObjectAnimator.REVERSE
@@ -50,20 +50,19 @@ class WelcomeActivity : AppCompatActivity() {
         val title = ObjectAnimator.ofFloat(binding.titleTextView, View.ALPHA, 1f).setDuration(500)
         val desc = ObjectAnimator.ofFloat(binding.descTextView, View.ALPHA, 1f).setDuration(500)
 
-        val together = AnimatorSet().apply{
-            playTogether(login,signup)
+        val together = AnimatorSet().apply {
+            playTogether(login, signup)
         }
 
         AnimatorSet().apply {
-            playSequentially(title,desc,together)
+            playSequentially(title, desc, together)
             start()
         }
 
     }
 
     private fun setupView() {
-        @Suppress("DEPRECATION")
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        @Suppress("DEPRECATION") if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsets.Type.statusBars())
         } else {
             window.setFlags(

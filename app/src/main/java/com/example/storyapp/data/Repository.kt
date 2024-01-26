@@ -13,8 +13,7 @@ import okhttp3.RequestBody
 import retrofit2.Call
 
 class Repository private constructor(
-    private val userPreference: UserPreference,
-    private val apiService: ApiService
+    private val userPreference: UserPreference, private val apiService: ApiService
 ) {
 
     suspend fun saveSession(user: UserModel) {
@@ -42,24 +41,20 @@ class Repository private constructor(
     }
 
     fun uploadStory(
-        token: String?,
-        file: MultipartBody.Part,
-        description: RequestBody
+        token: String?, file: MultipartBody.Part, description: RequestBody
     ): Call<FileUploadResponse> {
-        return apiService.uploadStory("Bearer $token",file, description)
+        return apiService.uploadStory("Bearer $token", file, description)
     }
 
     companion object {
         @Volatile
         private var instance: Repository? = null
         fun getInstance(
-            userPreference: UserPreference,
-            apiService: ApiService
-        ): Repository =
-            instance ?: synchronized(this) {
-                instance ?: Repository(userPreference, apiService)
-            }.also {
-                instance = it
-            }
+            userPreference: UserPreference, apiService: ApiService
+        ): Repository = instance ?: synchronized(this) {
+            instance ?: Repository(userPreference, apiService)
+        }.also {
+            instance = it
+        }
     }
 }

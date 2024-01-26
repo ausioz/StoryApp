@@ -10,15 +10,14 @@ import android.widget.RemoteViews
 import android.widget.Toast
 import androidx.core.net.toUri
 import com.example.storyapp.R
+
 /**
  * Implementation of App Widget functionality.
  */
 class StoryWidget : AppWidgetProvider() {
 
     override fun onUpdate(
-        context: Context,
-        appWidgetManager: AppWidgetManager,
-        appWidgetIds: IntArray
+        context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray
     ) {
         // There may be multiple widgets active, so update all of them
         for (appWidgetId in appWidgetIds) {
@@ -41,9 +40,7 @@ class StoryWidget : AppWidgetProvider() {
         const val EXTRA_ITEM = "com.example.storyapp.EXTRA_ITEM"
 
         private fun updateAppWidget(
-            context: Context,
-            appWidgetManager: AppWidgetManager,
-            appWidgetId: Int
+            context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int
         ) {
             val intent = Intent(context, StackWidgetService::class.java)
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
@@ -58,9 +55,10 @@ class StoryWidget : AppWidgetProvider() {
             toastIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
 
             val toastPendingIntent = PendingIntent.getBroadcast(
-                context, 0, toastIntent,
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
-                    PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
+                context,
+                0,
+                toastIntent,
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
                 else 0
             )
             views.setPendingIntentTemplate(R.id.stack_view, toastPendingIntent)

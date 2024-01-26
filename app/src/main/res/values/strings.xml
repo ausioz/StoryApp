@@ -31,9 +31,9 @@
     <string name="floating_action_button">Tombol untuk menuju halaman unggah story</string>
     <string name="email_tidak_valid">Email tidak valid</string>
     <string name="password_tidak_boleh_kurang_dari_8_karakter">Password tidak boleh kurang dari 8 karakter</string>
-    <string name="appwidget_text">EXAMPLE</string>
-    <string name="add_widget">Add widget</string>
-    <string name="app_widget_description">This is an app widget description</string>
+    <string name="appwidget_text">CONTOH</string>
+    <string name="add_widget">Tambah widget</string>
+    <string name="app_widget_description">Ini adalah deskripsi widget aplikasi</string>
     <string name="halaman_story">Halaman Story</string>
     <string name="tidak_ada_data">Tidak ada data</string>
 </resources>

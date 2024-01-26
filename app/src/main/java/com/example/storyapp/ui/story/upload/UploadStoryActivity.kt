@@ -28,7 +28,7 @@ class UploadStoryActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityUploadStoryBinding
     private val viewModel by viewModels<UploadStoryViewModel> {
-        ViewModelFactory.getInstance(this,application)
+        ViewModelFactory.getInstance(this, application)
     }
     private var currentImageUri: Uri? = null
     private val loadingDialog = LoadingDialogFragment()
@@ -97,7 +97,7 @@ class UploadStoryActivity : AppCompatActivity() {
             )
             viewModel.getSession().observe(this) {
                 val token = viewModel.getSession().value?.token
-                viewModel.uploadStory(token,multipartBody, requestBody)
+                viewModel.uploadStory(token, multipartBody, requestBody)
                 viewModel.uploadResponse.observe(this) { response ->
                     if (!response.error) {
                         Toast.makeText(this, response.message, Toast.LENGTH_SHORT).show()

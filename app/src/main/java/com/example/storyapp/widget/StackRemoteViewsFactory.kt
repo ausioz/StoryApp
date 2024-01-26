@@ -27,10 +27,12 @@ internal class StackRemoteViewsFactory(private val context: Context) :
             updateList(it)
         }
     }
+
     override fun onDataSetChanged() {
         storyItems = db.storyDao().getList()
         getViewAt(0)
     }
+
     override fun onDestroy() {}
 
     override fun getCount(): Int = story.size

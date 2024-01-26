@@ -11,23 +11,28 @@ import com.example.storyapp.ui.story.upload.UploadStoryViewModel
 import com.example.storyapp.ui.user.login.LoginViewModel
 import com.example.storyapp.ui.user.register.RegisterViewModel
 
-class ViewModelFactory(private val repository: Repository, private val application: Application) : ViewModelProvider.NewInstanceFactory() {
+class ViewModelFactory(private val repository: Repository, private val application: Application) :
+    ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
             modelClass.isAssignableFrom(MainViewModel::class.java) -> {
-                MainViewModel(repository,application) as T
+                MainViewModel(repository, application) as T
             }
+
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
                 LoginViewModel(repository) as T
             }
+
             modelClass.isAssignableFrom(RegisterViewModel::class.java) -> {
                 RegisterViewModel(repository) as T
             }
+
             modelClass.isAssignableFrom(UploadStoryViewModel::class.java) -> {
                 UploadStoryViewModel(repository) as T
             }
+
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
     }
@@ -35,11 +40,12 @@ class ViewModelFactory(private val repository: Repository, private val applicati
     companion object {
         @Volatile
         private var INSTANCE: ViewModelFactory? = null
+
         @JvmStatic
         fun getInstance(context: Context, application: Application): ViewModelFactory {
             if (INSTANCE == null) {
                 synchronized(ViewModelFactory::class.java) {
-                    INSTANCE = ViewModelFactory(Injection.provideRepository(context),application)
+                    INSTANCE = ViewModelFactory(Injection.provideRepository(context), application)
                 }
             }
             return INSTANCE as ViewModelFactory

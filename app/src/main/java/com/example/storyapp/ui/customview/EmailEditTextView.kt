@@ -16,14 +16,16 @@ import com.example.storyapp.R
 class EmailEditTextView : AppCompatEditText, View.OnTouchListener {
     private lateinit var clearButtonImage: Drawable
 
-    constructor(context: Context) : super(context){init()}
+    constructor(context: Context) : super(context) {
+        init()
+    }
 
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs){init()}
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
+        init()
+    }
 
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
-        context,
-        attrs,
-        defStyleAttr
+        context, attrs, defStyleAttr
     ) {
         init()
     }
@@ -75,10 +77,7 @@ class EmailEditTextView : AppCompatEditText, View.OnTouchListener {
     }
 
     override fun onTextChanged(
-        text: CharSequence,
-        start: Int,
-        lengthBefore: Int,
-        lengthAfter: Int
+        text: CharSequence, start: Int, lengthBefore: Int, lengthAfter: Int
     ) {
         super.onTextChanged(text, start, lengthBefore, lengthAfter)
         if (!isEmailValid(text)) {

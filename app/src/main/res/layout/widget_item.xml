@@ -7,6 +7,7 @@
     android:background="@color/navy_primary">
 
         <ImageView
+            android:contentDescription="@string/gambar_upload_story"
             android:id="@+id/imageView_widget"
             android:layout_width="200dp"
             android:layout_height="200dp"
