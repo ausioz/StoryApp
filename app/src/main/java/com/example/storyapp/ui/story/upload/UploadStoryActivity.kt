@@ -96,16 +96,16 @@ class UploadStoryActivity : AppCompatActivity() {
                 "photo", imageFile.name, requestImageFile
             )
             viewModel.getSession().observe(this) {
-                val token = viewModel.getSession().value?.token
-                viewModel.uploadStory(token, multipartBody, requestBody)
-                viewModel.uploadResponse.observe(this) { response ->
-                    if (!response.error) {
-                        Toast.makeText(this, response.message, Toast.LENGTH_SHORT).show()
-                        startActivity(Intent(this, MainActivity::class.java))
-                        finish()
-                    }
+                viewModel.uploadStory(it.token, multipartBody, requestBody)
+            }
+            viewModel.uploadResponse.observe(this) { response ->
+                if (!response.error) {
+                    Toast.makeText(this, response.message, Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, MainActivity::class.java))
+                    finish()
                 }
             }
+
         } ?: showError(getString((R.string.masukan_berkas_gambar)))
     }
 
