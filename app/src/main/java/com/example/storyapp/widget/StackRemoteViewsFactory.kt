@@ -38,6 +38,12 @@ internal class StackRemoteViewsFactory(private val context: Context) :
             cursor?.close()
         }
 
+        storyItems = db.storyDao().getList()
+        storyItems.value?.let { updateList(it) }
+        if (story.isNotEmpty()) {
+            getViewAt(0)
+        }
+
         val identityToken = Binder.clearCallingIdentity()
 
         // querying ke database
@@ -45,11 +51,7 @@ internal class StackRemoteViewsFactory(private val context: Context) :
 
         Binder.restoreCallingIdentity(identityToken)
 
-        storyItems = db.storyDao().getList()
-        storyItems.value?.let { updateList(it) }
-        if (story.isNotEmpty()) {
-            getViewAt(0)
-        }
+
     }
 
 
@@ -91,7 +93,6 @@ internal class StackRemoteViewsFactory(private val context: Context) :
     private fun updateList(newList: List<StoryListEntity>) {
         story.clear()
         story.addAll(newList)
-        onDataSetChanged()
     }
 
 }

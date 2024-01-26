@@ -34,34 +34,14 @@ class StoryWidget : AppWidgetProvider() {
         storyItems.observeForever {
             updateList(it)
         }
-//        val widgetManager =
-//            AppWidgetManager.getInstance(context.applicationContext)
-//        widgetManager.notifyAppWidgetViewDataChanged(
-//            widgetManager.getAppWidgetIds(
-//                ComponentName
-//                    (context.applicationContext.packageName, StoryWidget::class.java.name)
-//            ),
-//            R.id.item_widget
-//        )
         // There may be multiple widgets active, so update all of them
         for (appWidgetId in appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId)
         }
-
-
     }
 
     override fun onReceive(context: Context, intent: Intent) {
         super.onReceive(context, intent)
-//        val widgetManager =
-//            AppWidgetManager.getInstance(context.applicationContext)
-//        widgetManager.notifyAppWidgetViewDataChanged(
-//            widgetManager.getAppWidgetIds(
-//                ComponentName
-//                    (context.applicationContext.packageName, StoryWidget::class.java.name)
-//            ),
-//            R.id.item_widget
-//        )
         if (intent.action != null) {
             if (intent.action == TOAST_ACTION) {
                 val viewIndex = intent.getStringExtra(EXTRA_ITEM)

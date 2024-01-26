@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
             }
             if (it.isLogin) {
                 supportActionBar?.title = getString(R.string.greeting, it.name)
-                viewModel.getStory(it.token)
+                viewModel.getStory(it.token.toString())
             }
         }
 
