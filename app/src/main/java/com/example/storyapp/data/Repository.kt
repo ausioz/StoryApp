@@ -36,25 +36,23 @@ class Repository private constructor(
         return apiService.register(name, email, password)
     }
 
-    fun getStories(token: String): Call<StoryResponse> {
-        return apiService.getStories("Bearer $token")
+    fun getStories(): Call<StoryResponse> {
+        return apiService.getStories()
     }
 
     fun uploadStory(
-        token: String?, file: MultipartBody.Part, description: RequestBody
+        file: MultipartBody.Part, description: RequestBody
     ): Call<FileUploadResponse> {
-        return apiService.uploadStory("Bearer $token", file, description)
+        return apiService.uploadStory(file, description)
     }
 
     companion object {
-        @Volatile
-        private var instance: Repository? = null
+//        @Volatile
+//        private var instance: Repository? = null
         fun getInstance(
             userPreference: UserPreference, apiService: ApiService
-        ): Repository = instance ?: synchronized(this) {
-            instance ?: Repository(userPreference, apiService)
-        }.also {
-            instance = it
+        ): Repository = synchronized(this) {
+             Repository(userPreference, apiService)
         }
     }
 }

@@ -31,9 +31,9 @@ class UploadStoryViewModel(private val repository: Repository) : ViewModel() {
         return repository.getSession().asLiveData()
     }
 
-    fun uploadStory(token: String?, file: MultipartBody.Part, description: RequestBody) {
+    fun uploadStory(file: MultipartBody.Part, description: RequestBody) {
         _isLoading.value = true
-        val client = repository.uploadStory(token, file, description)
+        val client = repository.uploadStory(file, description)
         client.enqueue(object : Callback<FileUploadResponse> {
             override fun onResponse(
                 call: Call<FileUploadResponse>, response: Response<FileUploadResponse>

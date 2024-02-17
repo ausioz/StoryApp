@@ -11,7 +11,6 @@ import com.example.storyapp.data.Repository
 import com.example.storyapp.data.local.entity.StoryListEntity
 import com.example.storyapp.data.local.room.StoryDatabase
 import com.example.storyapp.data.pref.UserModel
-import com.example.storyapp.data.response.ListStoryItem
 import com.example.storyapp.data.response.StoryResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -44,9 +43,9 @@ class MainViewModel(private val repository: Repository, private val application:
         }
     }
 
-    fun getStory(token: String) {
+    fun getStory() {
         _isLoading.value = true
-        val client = repository.getStories(token)
+        val client = repository.getStories()
         client.enqueue(object : Callback<StoryResponse> {
             override fun onResponse(call: Call<StoryResponse>, response: Response<StoryResponse>) {
                 if (response.isSuccessful) {

@@ -1,17 +1,19 @@
 package com.example.storyapp.ui.main
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.asLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.storyapp.R
 import com.example.storyapp.ViewModelFactory
 import com.example.storyapp.data.response.ListStoryItem
 import com.example.storyapp.databinding.ActivityMainBinding
+import com.example.storyapp.di.Injection
 import com.example.storyapp.ui.story.upload.UploadStoryActivity
 import com.example.storyapp.ui.welcome.WelcomeActivity
 
@@ -42,14 +44,17 @@ class MainActivity : AppCompatActivity() {
             showError(it)
         }
 
-        viewModel.getSession().observe(this) {
+        viewModel.getSession().observe(this) { it ->
             if (!it.isLogin) {
                 startActivity(Intent(this, WelcomeActivity::class.java))
                 finish()
             }
             if (it.isLogin) {
                 supportActionBar?.title = getString(R.string.greeting, it.name)
-                viewModel.getStory(it.token.toString())
+                Injection.provideRepository(this).getSession().asLiveData()
+                    .observe(this) { userModel ->
+                        if (userModel.token != "") viewModel.getStory()
+                    }
             }
         }
 

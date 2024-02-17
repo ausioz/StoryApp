@@ -32,6 +32,7 @@ class RegisterActivity : AppCompatActivity() {
             if (it.error == false) {
                 Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this, WelcomeActivity::class.java))
+                finish()
             }
         }
 

@@ -38,17 +38,13 @@ class ViewModelFactory(private val repository: Repository, private val applicati
     }
 
     companion object {
-        @Volatile
-        private var INSTANCE: ViewModelFactory? = null
+//        @Volatile
+//        private var INSTANCE: ViewModelFactory? = null
 
-        @JvmStatic
         fun getInstance(context: Context, application: Application): ViewModelFactory {
-            if (INSTANCE == null) {
-                synchronized(ViewModelFactory::class.java) {
-                    INSTANCE = ViewModelFactory(Injection.provideRepository(context), application)
+              return synchronized(ViewModelFactory::class.java) {
+                        ViewModelFactory(Injection.provideRepository(context), application)
                 }
-            }
-            return INSTANCE as ViewModelFactory
         }
     }
 }

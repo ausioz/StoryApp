@@ -96,7 +96,7 @@ class UploadStoryActivity : AppCompatActivity() {
                 "photo", imageFile.name, requestImageFile
             )
             viewModel.getSession().observe(this) {
-                viewModel.uploadStory(it.token, multipartBody, requestBody)
+                viewModel.uploadStory(multipartBody, requestBody)
             }
             viewModel.uploadResponse.observe(this) { response ->
                 if (!response.error) {
