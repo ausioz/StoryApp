@@ -36,4 +36,6 @@
     <string name="app_widget_description">Ini adalah deskripsi widget aplikasi</string>
     <string name="halaman_story">Halaman Story</string>
     <string name="tidak_ada_data">Tidak ada data</string>
+    <string name="maps">Maps</string>
+    <string name="title_activity_story_maps">StoryMapsActivity</string>
 </resources>

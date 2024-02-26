@@ -40,6 +40,10 @@ class Repository private constructor(
         return apiService.getStories()
     }
 
+    fun getStoriesWithLocation(): Call<StoryResponse> {
+        return apiService.getStoriesWithLocation()
+    }
+
     fun uploadStory(
         file: MultipartBody.Part, description: RequestBody
     ): Call<FileUploadResponse> {
@@ -47,8 +51,6 @@ class Repository private constructor(
     }
 
     companion object {
-//        @Volatile
-//        private var instance: Repository? = null
         fun getInstance(
             userPreference: UserPreference, apiService: ApiService
         ): Repository = synchronized(this) {

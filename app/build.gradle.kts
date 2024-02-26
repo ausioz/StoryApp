@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-parcelize")
     id("com.google.devtools.ksp")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
@@ -43,6 +44,7 @@ android {
 }
 
 dependencies {
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
     implementation("com.github.bumptech.glide:glide:4.16.0")
 
     implementation("com.squareup.retrofit2:retrofit:2.9.0")

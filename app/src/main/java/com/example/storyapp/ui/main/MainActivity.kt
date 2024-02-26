@@ -14,6 +14,7 @@ import com.example.storyapp.ViewModelFactory
 import com.example.storyapp.data.response.ListStoryItem
 import com.example.storyapp.databinding.ActivityMainBinding
 import com.example.storyapp.di.Injection
+import com.example.storyapp.ui.map.StoryMapsActivity
 import com.example.storyapp.ui.story.upload.UploadStoryActivity
 import com.example.storyapp.ui.welcome.WelcomeActivity
 
@@ -101,6 +102,10 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.logout -> {
                     viewModel.logout()
+                    true
+                }
+                R.id.maps -> {
+                    startActivity(Intent(this,StoryMapsActivity::class.java))
                     true
                 }
 

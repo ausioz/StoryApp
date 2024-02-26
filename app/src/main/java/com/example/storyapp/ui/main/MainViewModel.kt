@@ -79,6 +79,43 @@ class MainViewModel(private val repository: Repository, private val application:
         })
     }
 
+    fun getStoriesWithLocation(){
+        _isLoading.value = true
+        val client = repository.getStoriesWithLocation()
+        client.enqueue(object : Callback<StoryResponse>{
+            override fun onResponse(call: Call<StoryResponse>, response: Response<StoryResponse>) {
+                if (response.isSuccessful) {
+                    if (response.body() != null) {
+                        _isLoading.value = false
+                        _listStory.value = response.body()
+
+                        viewModelScope.launch(Dispatchers.IO) {
+                            db.storyDao().deleteAll()
+                            _listStory.value?.listStory?.forEach { story ->
+                                db.storyDao().insertList(
+                                    StoryListEntity(
+                                        0, story.name, story.photoUrl, story.description
+                                    )
+                                )
+                            }
+                        }
+                    }
+                } else {
+                    _isLoading.value = false
+                    _errorMsg.value = response.message()
+                    Log.e(TAG, "onFailure: ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<StoryResponse>, t: Throwable) {
+                _isLoading.value = false
+                _errorMsg.value = t.message
+                Log.e(TAG, "onFailure: ${t.message}")
+            }
+
+        })
+
+    }
 
     companion object {
         private const val TAG = "MainViewModel"
