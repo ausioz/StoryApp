@@ -1,8 +1,6 @@
 package com.example.storyapp.ui.map
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -10,8 +8,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.request.transition.Transition
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.storyapp.R
 import com.example.storyapp.ViewModelFactory
 import com.example.storyapp.databinding.ActivityStoryMapsBinding
@@ -38,10 +35,6 @@ class StoryMapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private val loadingDialog = LoadingDialogFragment()
     private val boundsBuilder = LatLngBounds.Builder()
 
-    //initiate those two variables
-    private val images: HashMap<Marker, Bitmap> = HashMap()
-    private val targets: HashMap<Marker, CustomTarget<Bitmap>> = HashMap()
-
     private var photoUrl = mutableListOf<String?>()
     private var markerId = mutableListOf<String?>()
 
@@ -56,29 +49,24 @@ class StoryMapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
         override fun getInfoContents(marker: Marker): View {
-            render(marker,contents)
+            render(marker, contents)
+            if (marker.isInfoWindowShown) marker.showInfoWindow()
             return contents.root
         }
 
         private fun render(marker: Marker, binding: CustomInfoContentLayoutBinding) {
             var photo = ""
-                photo = when (marker.id) {
-                    markerId[0] -> photoUrl[0].toString()
-                    markerId[1] -> photoUrl[1].toString()
-                    markerId[2] -> photoUrl[2].toString()
-                    markerId[3] -> photoUrl[3].toString()
-                    markerId[4] -> photoUrl[4].toString()
-                    markerId[5] -> photoUrl[5].toString()
-                    markerId[6] -> photoUrl[6].toString()
-                    markerId[7] -> photoUrl[7].toString()
-                    markerId[8] -> photoUrl[8].toString()
-                    markerId[9] -> photoUrl[9].toString()
-                    else -> {
-                        ""
-                    }
+            markerId.forEachIndexed { index, value ->
+                when (marker.id) {
+                    value -> photo = photoUrl[index].toString()
                 }
-            Glide.with(context).load(photo).into(binding.ivPhoto)
-            Log.d("imgurl", "render: $photo")
+            }
+
+            if (photo.isNotEmpty()) {
+                Glide.with(context).asBitmap().load(photo).diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                    .placeholder(R.drawable.placeholder).into(binding.ivPhoto)
+                Log.d("render", "render: $photo")
+            }
             binding.tvUser.text = marker.title
             binding.tvDesc.text = marker.snippet
         }
@@ -139,12 +127,9 @@ class StoryMapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 photoUrl.add(story.photoUrl)
                 markerId.add(marker?.id)
 
-
                 boundsBuilder.include(latLng)
             }
             mMap.setInfoWindowAdapter(MarkerInfoWindowAdapter(this))
-            Log.d("lmao", "onMapReady: ${photoUrl.toList()}")
-            Log.d("lmao", "onMapReady: ${markerId.toList()}")
             val bounds: LatLngBounds = boundsBuilder.build()
             mMap.animateCamera(
                 CameraUpdateFactory.newLatLngBounds(
@@ -156,12 +141,11 @@ class StoryMapsActivity : AppCompatActivity(), OnMapReadyCallback {
             )
         }
 
+//        mMap.setOnPoiClickListener {
+//            val poi = mMap.addMarker(MarkerOptions().position(it.latLng).title(it.name))
+//            poi?.showInfoWindow()
+//        }
 
-
-        mMap.setOnPoiClickListener {
-            val poi = mMap.addMarker(MarkerOptions().position(it.latLng).title(it.name))
-            poi?.showInfoWindow()
-        }
     }
 
 
