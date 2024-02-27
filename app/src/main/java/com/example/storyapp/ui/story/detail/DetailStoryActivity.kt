@@ -4,8 +4,8 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.bumptech.glide.Glide
+import com.example.storyapp.data.local.entity.StoryMediatorEntity
 import com.example.storyapp.data.paging.story.GetStoryListAdapter
-import com.example.storyapp.data.response.ListStoryItem
 import com.example.storyapp.databinding.ActivityDetailStoryBinding
 
 
@@ -17,9 +17,9 @@ class DetailStoryActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val parcel = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra(GetStoryListAdapter.EXTRA_STORY, ListStoryItem::class.java)
+            intent.getParcelableExtra(GetStoryListAdapter.EXTRA_STORY, StoryMediatorEntity::class.java)
         } else {
-            @Suppress("DEPRECATION") intent.getParcelableExtra(GetStoryListAdapter.EXTRA_STORY) as? ListStoryItem
+            @Suppress("DEPRECATION") intent.getParcelableExtra(GetStoryListAdapter.EXTRA_STORY) as? StoryMediatorEntity
         }
 
         Glide.with(this).load(parcel?.photoUrl).into(binding.imageView)
