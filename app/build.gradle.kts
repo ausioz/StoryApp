@@ -44,6 +44,8 @@ android {
 }
 
 dependencies {
+    implementation("androidx.room:room-paging:2.6.1")
+    implementation("androidx.paging:paging-runtime-ktx:3.2.1")
     implementation("com.google.android.gms:play-services-maps:18.2.0")
     implementation("com.github.bumptech.glide:glide:4.16.0")
 
@@ -56,7 +58,7 @@ dependencies {
     implementation("androidx.activity:activity-ktx:1.8.2")
 
     //room
-    implementation ("androidx.room:room-runtime:2.6.1")
+    implementation ("androidx.room:room-ktx:2.6.1")
     ksp ("androidx.room:room-compiler:2.6.1")
     implementation("androidx.datastore:datastore-preferences:1.0.0")
     implementation("androidx.exifinterface:exifinterface:1.3.7")

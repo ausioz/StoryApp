@@ -114,7 +114,7 @@ class StoryMapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         viewModel.listStory.observe(this) {
 
-            it.listStory?.forEach { story ->
+            it.listStory.forEach { story ->
                 val latLng =
                     if (story.lat != null && story.lon != null) LatLng(story.lat, story.lon)
                     else LatLng(0.0, 0.0)

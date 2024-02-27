@@ -7,10 +7,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.example.storyapp.data.Repository
 import com.example.storyapp.data.local.entity.StoryListEntity
+import com.example.storyapp.data.local.entity.StoryMediatorEntity
 import com.example.storyapp.data.local.room.StoryDatabase
 import com.example.storyapp.data.pref.UserModel
+import com.example.storyapp.data.response.ListStoryItem
 import com.example.storyapp.data.response.StoryResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -43,46 +47,14 @@ class MainViewModel(private val repository: Repository, private val application:
         }
     }
 
-    fun getStory() {
-        _isLoading.value = true
-        val client = repository.getStories()
-        client.enqueue(object : Callback<StoryResponse> {
-            override fun onResponse(call: Call<StoryResponse>, response: Response<StoryResponse>) {
-                if (response.isSuccessful) {
-                    if (response.body() != null) {
-                        _isLoading.value = false
-                        _listStory.value = response.body()
-
-                        viewModelScope.launch(Dispatchers.IO) {
-                            db.storyDao().deleteAll()
-                            _listStory.value?.listStory?.forEach { story ->
-                                db.storyDao().insertList(
-                                    StoryListEntity(
-                                        0, story.name, story.photoUrl, story.description
-                                    )
-                                )
-                            }
-                        }
-                    }
-                } else {
-                    _isLoading.value = false
-                    _errorMsg.value = response.message()
-                    Log.e(TAG, "onFailure: ${response.message()}")
-                }
-            }
-
-            override fun onFailure(call: Call<StoryResponse>, t: Throwable) {
-                _isLoading.value = false
-                _errorMsg.value = t.message
-                Log.e(TAG, "onFailure: ${t.message}")
-            }
-        })
+    fun getStory(): LiveData<PagingData<StoryMediatorEntity>> {
+        return repository.getStories().cachedIn(viewModelScope)
     }
 
-    fun getStoriesWithLocation(){
+    fun getStoriesWithLocation() {
         _isLoading.value = true
         val client = repository.getStoriesWithLocation()
-        client.enqueue(object : Callback<StoryResponse>{
+        client.enqueue(object : Callback<StoryResponse> {
             override fun onResponse(call: Call<StoryResponse>, response: Response<StoryResponse>) {
                 if (response.isSuccessful) {
                     if (response.body() != null) {

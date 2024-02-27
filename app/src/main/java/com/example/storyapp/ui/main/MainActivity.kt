@@ -2,16 +2,19 @@ package com.example.storyapp.ui.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.asLiveData
+import androidx.paging.map
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.storyapp.R
 import com.example.storyapp.ViewModelFactory
-import com.example.storyapp.data.response.ListStoryItem
+import com.example.storyapp.data.paging.LoadingStateAdapter
+import com.example.storyapp.data.paging.story.GetStoryListAdapter
 import com.example.storyapp.databinding.ActivityMainBinding
 import com.example.storyapp.di.Injection
 import com.example.storyapp.ui.map.StoryMapsActivity
@@ -25,7 +28,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var mainPagerAdapter: MainPagerAdapter
+    private lateinit var getStoryListAdapter: GetStoryListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,15 +40,15 @@ class MainActivity : AppCompatActivity() {
             this, LinearLayoutManager.VERTICAL, false
         )
 
-        viewModel.isLoading.observe(this) {
-            showLoading(it)
-        }
+//        viewModel.isLoading.observe(this) {
+//            showLoading(it)
+//        }
+//
+//        viewModel.errorMsg.observe(this) {
+//            showError(it)
+//        }
 
-        viewModel.errorMsg.observe(this) {
-            showError(it)
-        }
-
-        viewModel.getSession().observe(this) { it ->
+        viewModel.getSession().observe(this) {
             if (!it.isLogin) {
                 startActivity(Intent(this, WelcomeActivity::class.java))
                 finish()
@@ -54,13 +57,11 @@ class MainActivity : AppCompatActivity() {
                 supportActionBar?.title = getString(R.string.greeting, it.name)
                 Injection.provideRepository(this).getSession().asLiveData()
                     .observe(this) { userModel ->
-                        if (userModel.token != "") viewModel.getStory()
+                        if (userModel.token != "") {
+                            getStoryData()
+                        }
                     }
             }
-        }
-
-        viewModel.listStory.observe(this) {
-            setData(it.listStory)
         }
 
         binding.fab.setOnClickListener {
@@ -68,33 +69,38 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setData(list: List<ListStoryItem>?) {
-        mainPagerAdapter = MainPagerAdapter()
-        mainPagerAdapter.submitList(list)
-        binding.recyclerView.adapter = mainPagerAdapter
-    }
-
-    private fun showError(errorMsg: String?) {
-        Toast.makeText(this, "Error! \n$errorMsg", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun showLoading(isLoading: Boolean) {
-        if (isLoading) {
-            binding.apply {
-                progressBar.visibility = View.VISIBLE
-                recyclerView.visibility = View.GONE
-                toolBar.visibility = View.GONE
-            }
-
-        } else {
-            binding.apply {
-                progressBar.visibility = View.GONE
-                recyclerView.visibility = View.VISIBLE
-                toolBar.visibility = View.VISIBLE
-            }
-
+    private fun getStoryData() {
+        getStoryListAdapter = GetStoryListAdapter()
+        binding.recyclerView.adapter =
+            getStoryListAdapter.withLoadStateFooter(footer = LoadingStateAdapter {
+                getStoryListAdapter.retry()
+            })
+        viewModel.getStory().observe(this) {
+            getStoryListAdapter.submitData(lifecycle, it)
         }
     }
+
+//    private fun showError(errorMsg: String?) {
+//        Toast.makeText(this, "Error! \n$errorMsg", Toast.LENGTH_SHORT).show()
+//    }
+//
+//    private fun showLoading(isLoading: Boolean) {
+//        if (isLoading) {
+//            binding.apply {
+//                progressBar.visibility = View.VISIBLE
+//                recyclerView.visibility = View.GONE
+//                toolBar.visibility = View.GONE
+//            }
+//
+//        } else {
+//            binding.apply {
+//                progressBar.visibility = View.GONE
+//                recyclerView.visibility = View.VISIBLE
+//                toolBar.visibility = View.VISIBLE
+//            }
+//
+//        }
+//    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         binding.toolBar.inflateMenu(R.menu.option_menu)
@@ -104,8 +110,9 @@ class MainActivity : AppCompatActivity() {
                     viewModel.logout()
                     true
                 }
+
                 R.id.maps -> {
-                    startActivity(Intent(this,StoryMapsActivity::class.java))
+                    startActivity(Intent(this, StoryMapsActivity::class.java))
                     true
                 }
 
