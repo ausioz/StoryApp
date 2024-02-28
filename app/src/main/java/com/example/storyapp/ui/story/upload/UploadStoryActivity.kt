@@ -18,6 +18,8 @@ import com.example.storyapp.ui.main.MainActivity
 import com.example.storyapp.ui.story.upload.CameraActivity.Companion.CAMERAX_RESULT
 import com.example.storyapp.ui.story.upload.CameraActivity.Companion.EXTRA_CAMERAX_IMAGE
 import com.example.storyapp.ui.story.reduceFileImage
+import com.example.storyapp.ui.story.upload.CameraActivity.Companion.EXTRA_LATITUDE
+import com.example.storyapp.ui.story.upload.CameraActivity.Companion.EXTRA_LONGITUDE
 import com.example.storyapp.ui.story.uriToFile
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
@@ -31,6 +33,8 @@ class UploadStoryActivity : AppCompatActivity() {
         ViewModelFactory.getInstance(this, application)
     }
     private var currentImageUri: Uri? = null
+    private var currentLatitude: Float? = null
+    private var currentLongitude: Float? = null
     private val loadingDialog = LoadingDialogFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,6 +78,8 @@ class UploadStoryActivity : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == CAMERAX_RESULT) {
                 currentImageUri = it.data?.getStringExtra(EXTRA_CAMERAX_IMAGE)?.toUri()
+                currentLatitude = it.data?.getDoubleExtra(EXTRA_LATITUDE, 100.0)?.toFloat()
+                currentLongitude = it.data?.getDoubleExtra(EXTRA_LONGITUDE, 190.0)?.toFloat()
                 showImage()
             }
         }
@@ -95,8 +101,10 @@ class UploadStoryActivity : AppCompatActivity() {
             val multipartBody = MultipartBody.Part.createFormData(
                 "photo", imageFile.name, requestImageFile
             )
+            val lat = if (currentLatitude == 100F) null else currentLatitude
+            val long = if (currentLongitude == 190F) null else currentLongitude
             viewModel.getSession().observe(this) {
-                viewModel.uploadStory(multipartBody, requestBody)
+                viewModel.uploadStory(multipartBody, requestBody, lat, long)
             }
             viewModel.uploadResponse.observe(this) { response ->
                 if (!response.error) {

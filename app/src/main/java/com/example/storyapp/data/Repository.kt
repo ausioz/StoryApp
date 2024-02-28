@@ -62,9 +62,9 @@ class Repository private constructor(
     }
 
     fun uploadStory(
-        file: MultipartBody.Part, description: RequestBody
+        file: MultipartBody.Part, description: RequestBody, lat:Float?,long:Float?
     ): Call<FileUploadResponse> {
-        return apiService.uploadStory(file, description)
+        return apiService.uploadStory(file, description, lat,long)
     }
 
     companion object {
