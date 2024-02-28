@@ -67,25 +67,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
-    private fun showLoading(isLoading: Boolean) {
-        if (isLoading) {
-            binding.apply {
-                progressBar.visibility = View.VISIBLE
-                recyclerView.visibility = View.GONE
-                toolBar.visibility = View.GONE
-            }
-
-        } else {
-            binding.apply {
-                progressBar.visibility = View.GONE
-                recyclerView.visibility = View.VISIBLE
-                toolBar.visibility = View.VISIBLE
-            }
-
-        }
-    }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         binding.toolBar.inflateMenu(R.menu.option_menu)
         binding.toolBar.setOnMenuItemClickListener {
