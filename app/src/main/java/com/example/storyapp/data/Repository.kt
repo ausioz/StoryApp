@@ -50,7 +50,7 @@ class Repository private constructor(
     @OptIn(ExperimentalPagingApi::class)
     fun getStories(): LiveData<PagingData<StoryMediatorEntity>> {
         return Pager(
-            config = PagingConfig(pageSize = 5),
+            config = PagingConfig(pageSize = 20),
             remoteMediator = GetStoryMediator(storyMediatorDatabase, apiService),
             pagingSourceFactory = {
                 storyMediatorDatabase.storyMediatorDao().getAllStory()
