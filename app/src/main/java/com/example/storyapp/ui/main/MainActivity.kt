@@ -40,14 +40,6 @@ class MainActivity : AppCompatActivity() {
             this, LinearLayoutManager.VERTICAL, false
         )
 
-//        viewModel.isLoading.observe(this) {
-//            showLoading(it)
-//        }
-//
-//        viewModel.errorMsg.observe(this) {
-//            showError(it)
-//        }
-
         viewModel.getSession().observe(this) {
             if (!it.isLogin) {
                 startActivity(Intent(this, WelcomeActivity::class.java))
@@ -55,12 +47,7 @@ class MainActivity : AppCompatActivity() {
             }
             if (it.isLogin) {
                 supportActionBar?.title = getString(R.string.greeting, it.name)
-                Injection.provideRepository(this).getSession().asLiveData()
-                    .observe(this) { userModel ->
-                        if (userModel.token != "") {
-                            getStoryData()
-                        }
-                    }
+                getStoryData()
             }
         }
 
@@ -80,27 +67,24 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-//    private fun showError(errorMsg: String?) {
-//        Toast.makeText(this, "Error! \n$errorMsg", Toast.LENGTH_SHORT).show()
-//    }
-//
-//    private fun showLoading(isLoading: Boolean) {
-//        if (isLoading) {
-//            binding.apply {
-//                progressBar.visibility = View.VISIBLE
-//                recyclerView.visibility = View.GONE
-//                toolBar.visibility = View.GONE
-//            }
-//
-//        } else {
-//            binding.apply {
-//                progressBar.visibility = View.GONE
-//                recyclerView.visibility = View.VISIBLE
-//                toolBar.visibility = View.VISIBLE
-//            }
-//
-//        }
-//    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.apply {
+                progressBar.visibility = View.VISIBLE
+                recyclerView.visibility = View.GONE
+                toolBar.visibility = View.GONE
+            }
+
+        } else {
+            binding.apply {
+                progressBar.visibility = View.GONE
+                recyclerView.visibility = View.VISIBLE
+                toolBar.visibility = View.VISIBLE
+            }
+
+        }
+    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         binding.toolBar.inflateMenu(R.menu.option_menu)
@@ -110,16 +94,13 @@ class MainActivity : AppCompatActivity() {
                     viewModel.logout()
                     true
                 }
-
                 R.id.maps -> {
                     startActivity(Intent(this, StoryMapsActivity::class.java))
                     true
                 }
-
                 else -> false
             }
         }
-
         return super.onCreateOptionsMenu(menu)
 
     }
