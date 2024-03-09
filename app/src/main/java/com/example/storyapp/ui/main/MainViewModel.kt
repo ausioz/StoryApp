@@ -9,12 +9,11 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.example.storyapp.data.Repository
+import com.example.storyapp.data.RepositoryImpl
 import com.example.storyapp.data.local.entity.StoryListEntity
 import com.example.storyapp.data.local.entity.StoryMediatorEntity
 import com.example.storyapp.data.local.room.StoryDatabase
 import com.example.storyapp.data.pref.UserModel
-import com.example.storyapp.data.response.ListStoryItem
 import com.example.storyapp.data.response.StoryResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,7 +21,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainViewModel(private val repository: Repository, private val application: Application) :
+class MainViewModel(private val repositoryImpl: RepositoryImpl, private val application: Application) :
     ViewModel() {
 
     private val _isLoading = MutableLiveData<Boolean>()
@@ -38,22 +37,22 @@ class MainViewModel(private val repository: Repository, private val application:
 
 
     fun getSession(): LiveData<UserModel> {
-        return repository.getSession().asLiveData()
+        return repositoryImpl.getSession().asLiveData()
     }
 
     fun logout() {
         viewModelScope.launch {
-            repository.logout()
+            repositoryImpl.logout()
         }
     }
 
     fun getStory(): LiveData<PagingData<StoryMediatorEntity>> {
-        return repository.getStories().cachedIn(viewModelScope)
+        return repositoryImpl.getStories().cachedIn(viewModelScope)
     }
 
     fun getStoriesWithLocation() {
         _isLoading.value = true
-        val client = repository.getStoriesWithLocation()
+        val client = repositoryImpl.getStoriesWithLocation()
         client.enqueue(object : Callback<StoryResponse> {
             override fun onResponse(call: Call<StoryResponse>, response: Response<StoryResponse>) {
                 if (response.isSuccessful) {

@@ -56,10 +56,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        getStoryData()
-    }
+//    override fun onResume() {
+//        super.onResume()
+//        getStoryData()
+//    }
 
     private fun getStoryData() {
         getStoryListAdapter = GetStoryListAdapter()

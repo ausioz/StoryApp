@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
-import com.example.storyapp.data.Repository
+import com.example.storyapp.data.RepositoryImpl
 import com.example.storyapp.data.pref.UserModel
 import com.example.storyapp.data.response.ErrorResponse
 import com.example.storyapp.data.response.FileUploadResponse
@@ -16,7 +16,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class UploadStoryViewModel(private val repository: Repository) : ViewModel() {
+class UploadStoryViewModel(private val repositoryImpl: RepositoryImpl) : ViewModel() {
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -28,7 +28,7 @@ class UploadStoryViewModel(private val repository: Repository) : ViewModel() {
     val uploadResponse: LiveData<FileUploadResponse> = _uploadResponse
 
     fun getSession(): LiveData<UserModel> {
-        return repository.getSession().asLiveData()
+        return repositoryImpl.getSession().asLiveData()
     }
 
     fun uploadStory(
@@ -38,7 +38,7 @@ class UploadStoryViewModel(private val repository: Repository) : ViewModel() {
         long: Float?
     ) {
         _isLoading.value = true
-        val client = repository.uploadStory(file, description,lat,long)
+        val client = repositoryImpl.uploadStory(file, description,lat,long)
         client.enqueue(object : Callback<FileUploadResponse> {
             override fun onResponse(
                 call: Call<FileUploadResponse>, response: Response<FileUploadResponse>

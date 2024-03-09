@@ -1,14 +1,19 @@
 package com.example.storyapp.ui.map
 
 import android.content.Context
+import android.content.res.Resources
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.example.storyapp.R
 import com.example.storyapp.ViewModelFactory
 import com.example.storyapp.databinding.ActivityStoryMapsBinding
@@ -21,6 +26,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 
@@ -37,40 +43,6 @@ class StoryMapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private var photoUrl = mutableListOf<String?>()
     private var markerId = mutableListOf<String?>()
-
-    inner class MarkerInfoWindowAdapter(
-        private val context: Context
-    ) : GoogleMap.InfoWindowAdapter {
-
-        private val layoutInflater = (this@StoryMapsActivity).layoutInflater
-        private val contents = CustomInfoContentLayoutBinding.inflate(layoutInflater)
-        override fun getInfoWindow(marker: Marker): View? {
-            return null
-        }
-
-        override fun getInfoContents(marker: Marker): View {
-            render(marker, contents)
-            if (marker.isInfoWindowShown) marker.showInfoWindow()
-            return contents.root
-        }
-
-        private fun render(marker: Marker, binding: CustomInfoContentLayoutBinding) {
-            var photo = ""
-            markerId.forEachIndexed { index, value ->
-                when (marker.id) {
-                    value -> photo = photoUrl[index].toString()
-                }
-            }
-
-            if (photo.isNotEmpty()) {
-                Glide.with(context).asBitmap().load(photo).diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                    .placeholder(R.drawable.placeholder).into(binding.ivPhoto)
-                Log.d("render", "render: $photo")
-            }
-            binding.tvUser.text = marker.title
-            binding.tvDesc.text = marker.snippet
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -111,6 +83,8 @@ class StoryMapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap.uiSettings.isMapToolbarEnabled = true
         mMap.uiSettings.isCompassEnabled = true
         // Add a marker
+        setMapStyle()
+
 
         viewModel.listStory.observe(this) {
 
@@ -141,11 +115,78 @@ class StoryMapsActivity : AppCompatActivity(), OnMapReadyCallback {
             )
         }
 
-//        mMap.setOnPoiClickListener {
-//            val poi = mMap.addMarker(MarkerOptions().position(it.latLng).title(it.name))
-//            poi?.showInfoWindow()
-//        }
+    }
+    inner class MarkerInfoWindowAdapter(private val context: Context) :
+        GoogleMap.InfoWindowAdapter {
 
+        private var binding = CustomInfoContentLayoutBinding.inflate(LayoutInflater.from(context))
+        private val images: HashMap<Marker, Bitmap> = HashMap()
+        private val targets: HashMap<Marker, CustomTarget<Bitmap>> = HashMap()
+
+        private fun bind(marker: Marker) {
+            val image = images[marker]
+            var photo = ""
+            markerId.forEachIndexed { index, value ->
+                when (marker.id) {
+                    value -> photo = photoUrl[index].toString()
+                }
+            }
+
+            with(binding) {
+                tvUser.text = marker.title
+                tvDesc.text = marker.snippet
+                if (image == null) {
+                    Glide.with(context).asBitmap().load(photo).dontAnimate().into(getTarget(marker))
+
+                } else {
+                    ivPhoto.setImageBitmap(image)
+                }
+            }
+
+
+        }
+
+        override fun getInfoContents(marker: Marker): View {
+            bind(marker)
+            return binding.root
+        }
+
+        override fun getInfoWindow(marker: Marker): View {
+            bind(marker)
+            return binding.root
+        }
+
+        inner class InfoTarget(private var marker: Marker) : CustomTarget<Bitmap>() {
+
+            override fun onLoadCleared(placeholder: Drawable?) {
+                images.remove(marker)
+            }
+
+            override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                images[marker] = resource
+                marker.showInfoWindow()
+            }
+        }
+
+        private fun getTarget(marker: Marker): CustomTarget<Bitmap> {
+            var target = targets[marker]
+            if (target == null) {
+                target = InfoTarget(marker)
+                targets[marker] = target
+            }
+            return target
+        }
+    }
+    private fun setMapStyle() {
+        try {
+            val success =
+                mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.map_style))
+            if (!success) {
+                Log.e("StoryMapsActivity", "Style parsing failed.")
+            }
+        } catch (exception: Resources.NotFoundException) {
+            Log.e("StoryMapsActivity", "Can't find style. Error: ", exception)
+        }
     }
 
 

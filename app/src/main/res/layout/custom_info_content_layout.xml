@@ -1,32 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#A6FFFFFF"
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/tv_user"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_user"
-        android:text="User"
+        android:gravity="center_horizontal"
+        android:text="@string/user"
         android:textSize="16sp"
-        android:textStyle="bold"
-        android:gravity="center_horizontal"/>
+        android:textStyle="bold" />
 
     <ImageView
+        android:id="@+id/iv_photo"
         android:layout_width="180dp"
         android:layout_height="120dp"
-        android:id="@+id/iv_photo"
-        android:scaleType="centerCrop"
         android:layout_gravity="center_horizontal"
-        tools:srcCompat="@tools:sample/backgrounds/scenic"/>
+        android:scaleType="centerCrop"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
     <TextView
+        android:id="@+id/tv_desc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_desc"
         android:gravity="center_horizontal"
-        android:textSize="14sp"
-        android:text="Description"/>
+        android:text="@string/description"
+        android:textSize="14sp" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

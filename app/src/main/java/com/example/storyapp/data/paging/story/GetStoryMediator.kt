@@ -11,7 +11,7 @@ import com.example.storyapp.data.local.room.StoryRemoteKeys
 import com.example.storyapp.data.remote.ApiService
 
 @OptIn(ExperimentalPagingApi::class)
-class GetStoryMediator(
+open class GetStoryMediator(
     private val database: StoryMediatorDatabase,
     private val apiService: ApiService
 ) : RemoteMediator<Int, StoryMediatorEntity>() {

@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.storyapp.data.Repository
+import com.example.storyapp.data.RepositoryImpl
 import com.example.storyapp.data.pref.UserModel
 import com.example.storyapp.data.response.ErrorResponse
 import com.example.storyapp.data.response.LoginResponse
@@ -15,7 +15,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class LoginViewModel(private val repository: Repository) : ViewModel() {
+class LoginViewModel(private val repositoryImpl: RepositoryImpl) : ViewModel() {
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -28,13 +28,13 @@ class LoginViewModel(private val repository: Repository) : ViewModel() {
 
     fun saveSession(user: UserModel) {
         viewModelScope.launch {
-            repository.saveSession(user)
+            repositoryImpl.saveSession(user)
         }
     }
 
     fun login(email: String, password: String) {
         _isLoading.value = true
-        val client = repository.login(email, password)
+        val client = repositoryImpl.login(email, password)
         client.enqueue(object : Callback<LoginResponse> {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 if (response.isSuccessful) {
