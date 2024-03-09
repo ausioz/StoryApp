@@ -43,4 +43,9 @@
     <string name="description">Description</string>
     <string name="gambar_menunjukan_tombol_lokasi">Gambar menunjukan tombol untuk mengaktifkan fitur lokasi</string>
     <string name="menunjukan_gambar_story_yang_ada_pada_maps">Menunjukan gambar story yang ada pada maps</string>
+    <string name="latitude">Latitude : -</string>
+    <string name="longitude">Longitude : -</string>
+    <string name="latitude_value">Latitude : %1$s</string>
+    <string name="longitude_value">Longitude : %1$s</string>
+
 </resources>
