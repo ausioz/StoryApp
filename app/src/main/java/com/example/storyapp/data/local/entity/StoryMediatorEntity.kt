@@ -30,5 +30,4 @@ class StoryMediatorEntity (
 
     @field:SerializedName("lat")
     val lat: Double? = null
-):Parcelable{
-}
+):Parcelable

@@ -2,21 +2,15 @@ package com.example.storyapp.ui.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
-import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.asLiveData
-import androidx.paging.map
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.storyapp.R
 import com.example.storyapp.ViewModelFactory
 import com.example.storyapp.data.paging.LoadingStateAdapter
 import com.example.storyapp.data.paging.story.GetStoryListAdapter
 import com.example.storyapp.databinding.ActivityMainBinding
-import com.example.storyapp.di.Injection
 import com.example.storyapp.ui.map.StoryMapsActivity
 import com.example.storyapp.ui.story.upload.UploadStoryActivity
 import com.example.storyapp.ui.welcome.WelcomeActivity

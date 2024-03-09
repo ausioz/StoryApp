@@ -41,4 +41,6 @@
     <string name="retry">Retry</string>
     <string name="user">User</string>
     <string name="description">Description</string>
+    <string name="gambar_menunjukan_tombol_lokasi">Gambar menunjukan tombol untuk mengaktifkan fitur lokasi</string>
+    <string name="menunjukan_gambar_story_yang_ada_pada_maps">Menunjukan gambar story yang ada pada maps</string>
 </resources>

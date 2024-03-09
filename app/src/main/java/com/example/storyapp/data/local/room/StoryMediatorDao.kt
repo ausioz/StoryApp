@@ -6,7 +6,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.storyapp.data.local.entity.StoryMediatorEntity
-import com.example.storyapp.data.response.ListStoryItem
 
 
 @Dao

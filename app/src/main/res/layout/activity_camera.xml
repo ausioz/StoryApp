@@ -37,6 +37,7 @@
 
 
     <ImageView
+        android:contentDescription="@string/gambar_menunjukan_tombol_lokasi"
         android:id="@+id/ivLocation"
         android:layout_width="40dp"
         android:layout_height="40dp"

@@ -16,6 +16,7 @@
         android:textStyle="bold" />
 
     <ImageView
+        android:contentDescription="@string/menunjukan_gambar_story_yang_ada_pada_maps"
         android:id="@+id/iv_photo"
         android:layout_width="180dp"
         android:layout_height="120dp"

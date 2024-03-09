@@ -21,7 +21,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainViewModel(private val repositoryImpl: RepositoryImpl, private val application: Application) :
+class MainViewModel(private val repositoryImpl: RepositoryImpl, val application: Application) :
     ViewModel() {
 
     private val _isLoading = MutableLiveData<Boolean>()

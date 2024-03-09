@@ -1,7 +1,6 @@
 package com.example.storyapp.data
 
 import androidx.lifecycle.LiveData
-import androidx.paging.ExperimentalPagingApi
 import androidx.paging.PagingData
 import com.example.storyapp.data.local.entity.StoryMediatorEntity
 import com.example.storyapp.data.pref.UserModel
