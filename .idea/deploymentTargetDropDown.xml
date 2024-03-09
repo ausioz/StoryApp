@@ -18,6 +18,9 @@
           <timeTargetWasSelectedWithDropDown value="2024-02-28T11:51:28.370795400Z" />
         </State>
       </entry>
+      <entry key="storiesShouldBeReturnedZeroWhenItsNull()">
+        <State />
+      </entry>
     </value>
   </component>
 </project>

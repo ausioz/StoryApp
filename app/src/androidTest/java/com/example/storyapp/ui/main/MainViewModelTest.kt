@@ -74,6 +74,29 @@ class MainViewModelTest {
         }
     }
 
+    @Test
+    fun storiesShouldBeReturnedZeroWhenItsNull() {
+        runTest {
+            val expectedStories = MutableLiveData<PagingData<StoryMediatorEntity>>()
+            expectedStories.value = PagingData.from(listOf())
+            `when`(repositoryImpl.getStories()).thenReturn(expectedStories)
+
+            val actualStories = mainViewModel.getStory().getOrAwaitValue()
+            Mockito.verify(repositoryImpl).getStories()
+
+            val expectedDiffer = pagingDataDiffer
+            expectedDiffer.submitData(expectedStories.getOrAwaitValue())
+            val actualDiffer = pagingDataDiffer
+            actualDiffer.submitData(actualStories)
+
+            //Memastikan data nol.
+            assertTrue(actualDiffer.snapshot().items.isEmpty())
+            //Memastikan jumlah data yang dikembalikan nol.
+            assertEquals(0, actualDiffer.snapshot().items.size)
+
+        }
+    }
+
     class ListUpdateTestCallback : ListUpdateCallback {
         override fun onInserted(position: Int, count: Int) {}
 
