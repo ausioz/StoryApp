@@ -12,8 +12,9 @@ import android.view.View
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
 import com.example.storyapp.R
+import com.google.android.material.textfield.TextInputEditText
 
-class EmailEditTextView : AppCompatEditText, View.OnTouchListener {
+class EmailEditTextView : TextInputEditText, View.OnTouchListener {
     private lateinit var clearButtonImage: Drawable
 
     constructor(context: Context) : super(context) {
@@ -71,10 +72,10 @@ class EmailEditTextView : AppCompatEditText, View.OnTouchListener {
         )
     }
 
-    override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
-        textAlignment = View.TEXT_ALIGNMENT_VIEW_START
-    }
+//    override fun onDraw(canvas: Canvas) {
+//        super.onDraw(canvas)
+//        textAlignment = View.TEXT_ALIGNMENT_VIEW_START
+//    }
 
     override fun onTextChanged(
         text: CharSequence, start: Int, lengthBefore: Int, lengthAfter: Int

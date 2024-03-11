@@ -45,7 +45,7 @@ class WelcomeActivity : AppCompatActivity() {
             repeatMode = ObjectAnimator.REVERSE
         }.start()
 
-        val login = ObjectAnimator.ofFloat(binding.loginButton, View.ALPHA, 1f).setDuration(500)
+        val login = ObjectAnimator.ofFloat(binding.btLogin, View.ALPHA, 1f).setDuration(500)
         val signup = ObjectAnimator.ofFloat(binding.registerButton, View.ALPHA, 1f).setDuration(500)
         val title = ObjectAnimator.ofFloat(binding.titleTextView, View.ALPHA, 1f).setDuration(500)
         val desc = ObjectAnimator.ofFloat(binding.descTextView, View.ALPHA, 1f).setDuration(500)
@@ -74,7 +74,7 @@ class WelcomeActivity : AppCompatActivity() {
     }
 
     private fun setupAction() {
-        binding.loginButton.setOnClickListener {
+        binding.btLogin.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
         }
 

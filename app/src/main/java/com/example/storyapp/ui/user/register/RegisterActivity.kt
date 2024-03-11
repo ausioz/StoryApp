@@ -3,12 +3,16 @@ package com.example.storyapp.ui.user.register
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
+import com.example.storyapp.R
 import com.example.storyapp.ViewModelFactory
 import com.example.storyapp.databinding.ActivityRegisterBinding
 import com.example.storyapp.ui.customview.LoadingDialogFragment
@@ -125,5 +129,16 @@ class RegisterActivity : AppCompatActivity() {
         binding.registerButton.isEnabled = email.text != null && email.text.toString()
             .isNotEmpty() && email.error.isNullOrEmpty() && password.text != null && password.text.toString()
             .isNotEmpty() && password.error.isNullOrEmpty()
+        with(binding.registerButton){
+            background = if (isEnabled) ContextCompat.getDrawable(context, R.drawable.bg_button) as Drawable
+            else ContextCompat.getDrawable(context, R.drawable.bg_button_disable) as Drawable
+
+            setTextColor(ContextCompat.getColor(context, android.R.color.background_light))
+            textSize = 12f
+            gravity = Gravity.CENTER
+            text =
+                if (isEnabled) context.getString(R.string.kirim) else context.getString(
+                    R.string.isi_dulu)
+        }
     }
 }

@@ -16,6 +16,7 @@ import com.example.storyapp.data.response.FileUploadResponse
 import com.example.storyapp.data.response.LoginResponse
 import com.example.storyapp.data.response.RegisterResponse
 import com.example.storyapp.data.response.StoryResponse
+import com.example.storyapp.util.wrapEspressoIdlingResource
 import kotlinx.coroutines.flow.Flow
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -40,7 +41,9 @@ open class RepositoryImpl(
     }
 
     override fun login(email: String, password: String): Call<LoginResponse> {
-        return apiService.login(email, password)
+        wrapEspressoIdlingResource {
+            return apiService.login(email, password)
+        }
     }
 
     override fun register(name: String, email: String, password: String): Call<RegisterResponse> {

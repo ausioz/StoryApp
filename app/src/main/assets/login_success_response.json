@@ -1,0 +1,9 @@
+{
+  "error": false,
+  "message": "success",
+  "loginResult": {
+    "userId": "user-POgtedincAsiigzR",
+    "name": "yoyo",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyLVBPZ3RlZGluY0FzaWlnelIiLCJpYXQiOjE3MDYwMDI3NDl9.OHxSCuQsR43ppYLHEEPWEmw-ohL3MGmkKWJmFRT9iPo"
+  }
+}

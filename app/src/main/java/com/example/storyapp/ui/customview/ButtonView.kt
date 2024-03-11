@@ -33,11 +33,9 @@ class ButtonView : AppCompatButton {
         enabledBackground = ContextCompat.getDrawable(context, R.drawable.bg_button) as Drawable
         disabledBackground =
             ContextCompat.getDrawable(context, R.drawable.bg_button_disable) as Drawable
-    }
 
-    override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
-        background = if (isEnabled) enabledBackground else disabledBackground
+        background = if (isEnabled) enabledBackground
+        else disabledBackground
 
         setTextColor(txtColor)
         textSize = 12f
@@ -45,4 +43,19 @@ class ButtonView : AppCompatButton {
         text =
             if (isEnabled) context.getString(R.string.kirim) else context.getString(R.string.isi_dulu)
     }
+
+//    override fun onDraw(canvas: Canvas) {
+//        super.onDraw(canvas)
+//        background = if (isEnabled) enabledBackground
+//        else disabledBackground
+//
+//        setTextColor(txtColor)
+//        textSize = 12f
+//        gravity = Gravity.CENTER
+//        text =
+//            if (isEnabled) context.getString(R.string.kirim) else context.getString(R.string.isi_dulu)
+//
+//
+//    }
+
 }

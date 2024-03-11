@@ -8,11 +8,11 @@ import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
-import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
 import com.example.storyapp.R
+import com.google.android.material.textfield.TextInputEditText
 
-class PasswordEditTextView : AppCompatEditText, View.OnTouchListener {
+class PasswordEditTextView : TextInputEditText, View.OnTouchListener {
     private lateinit var clearButtonImage: Drawable
 
     constructor(context: Context) : super(context) {
@@ -70,10 +70,10 @@ class PasswordEditTextView : AppCompatEditText, View.OnTouchListener {
         )
     }
 
-    override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
-        textAlignment = View.TEXT_ALIGNMENT_VIEW_START
-    }
+//    override fun onDraw(canvas: Canvas) {
+//        super.onDraw(canvas)
+//        textAlignment = View.TEXT_ALIGNMENT_VIEW_START
+//    }
 
     override fun onTextChanged(
         text: CharSequence?, start: Int, lengthBefore: Int, lengthAfter: Int
