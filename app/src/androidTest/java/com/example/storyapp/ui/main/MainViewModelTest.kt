@@ -75,7 +75,7 @@ class MainViewModelTest {
     }
 
     @Test
-    fun storiesShouldBeReturnedZeroWhenItsNull() {
+    fun storiesShouldBeReturnedZeroWhenItsEmpty() {
         runTest {
             val expectedStories = MutableLiveData<PagingData<StoryMediatorEntity>>()
             expectedStories.value = PagingData.from(listOf())
