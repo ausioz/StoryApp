@@ -2,9 +2,6 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="LoginActivityTest">
-        <State />
-      </entry>
       <entry key="app">
         <State>
           <targetSelectedWithDropDown>
@@ -20,28 +17,6 @@
           </targetSelectedWithDropDown>
           <timeTargetWasSelectedWithDropDown value="2024-02-28T11:51:28.370795400Z" />
         </State>
-      </entry>
-      <entry key="loginSuccess()">
-        <State>
-          <targetSelectedWithDropDown>
-            <Target>
-              <type value="QUICK_BOOT_TARGET" />
-              <deviceKey>
-                <Key>
-                  <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\MSI GF63 CORE I7\.android\avd\Pixel_6_Pro_API_28.avd" />
-                </Key>
-              </deviceKey>
-            </Target>
-          </targetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-03-11T18:20:07.649209500Z" />
-        </State>
-      </entry>
-      <entry key="loginSuccessThenLogout()">
-        <State />
-      </entry>
-      <entry key="storiesShouldBeReturnedZeroWhenItsNull()">
-        <State />
       </entry>
     </value>
   </component>

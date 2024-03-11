@@ -87,10 +87,10 @@ class UploadStoryActivity : AppCompatActivity() {
             isTracking = isChecked
             if (isTracking) {
                 startLocationUpdate()
-                binding.ivLocation.setColorFilter(R.color.pruple)
+                binding.ivLocation.setColorFilter(R.color.gray)
             } else {
                 stopLocationUpdate()
-                binding.ivLocation.setColorFilter(R.color.gray)
+                binding.ivLocation.setColorFilter(R.color.pruple)
                 binding.tvLatitude.text = getString(R.string.latitude)
                 binding.tvLongitude.text = getString(R.string.longitude)
             }
