@@ -56,7 +56,7 @@ dependencies {
     androidTestImplementation ("androidx.test.espresso:espresso-intents:3.5.1")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     testImplementation("org.mockito:mockito-core:4.4.0")
-//    testImplementation("org.mockito:mockito-inline:4.4.0")
+    testImplementation("org.mockito:mockito-inline:4.4.0")
 //    testImplementation("androidx.test:core-ktx:1.5.0")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
     testImplementation("androidx.arch.core:core-testing:2.2.0") // InstantTaskExecutorRule

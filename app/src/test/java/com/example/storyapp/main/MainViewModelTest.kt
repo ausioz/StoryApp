@@ -66,7 +66,7 @@ class MainViewModelTest {
             assertNotNull(actualDiffer.snapshot().items)
             //Memastikan jumlah data sesuai dengan yang diharapkan.
             assertEquals(
-                expectedDiffer.snapshot().items.size, actualDiffer.snapshot().items.size
+                dummyStories.size, actualDiffer.snapshot().items.size
             )
             //Memastikan data pertama yang dikembalikan sesuai.
             assertEquals(
