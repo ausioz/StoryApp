@@ -70,7 +70,7 @@ class MainViewModelTest {
             )
             //Memastikan data pertama yang dikembalikan sesuai.
             assertEquals(
-                expectedDiffer.snapshot().items.first(), actualDiffer.snapshot().items.first()
+                dummyStories.first(), actualDiffer.snapshot().items.first()
             )
         }
     }
