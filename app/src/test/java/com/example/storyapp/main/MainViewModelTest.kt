@@ -1,18 +1,19 @@
-package com.example.storyapp.ui.main
+package com.example.storyapp.main
 
-import android.app.Application
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.AsyncPagingDataDiffer
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.ListUpdateCallback
-import androidx.test.core.app.ApplicationProvider
 import com.example.storyapp.data.RepositoryImpl
 import com.example.storyapp.data.local.entity.StoryMediatorEntity
 import com.example.storyapp.data.paging.story.GetStoryListAdapter
+import com.example.storyapp.ui.main.MainViewModel
 import com.example.storyapp.utils.DataDummy
+import com.example.storyapp.utils.MainDispatcherRule
 import com.example.storyapp.utils.getOrAwaitValue
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 import org.junit.Before
@@ -23,9 +24,11 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
-
+@ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
 class MainViewModelTest {
+    @get:Rule
+    val mainDispatcherRule = MainDispatcherRule()
     @get:Rule
     val instantExecutorRule = InstantTaskExecutorRule()
 
@@ -41,9 +44,7 @@ class MainViewModelTest {
 
     @Before
     fun setUp() {
-        val application = ApplicationProvider.getApplicationContext<Application>()
-        mainViewModel = MainViewModel(repositoryImpl, application)
-
+        mainViewModel = MainViewModel(repositoryImpl)
     }
 
     @Test

@@ -6,7 +6,9 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.liveData
+import com.example.storyapp.data.local.entity.StoryListEntity
 import com.example.storyapp.data.local.entity.StoryMediatorEntity
+import com.example.storyapp.data.local.room.StoryDatabase
 import com.example.storyapp.data.local.room.StoryMediatorDatabase
 import com.example.storyapp.data.paging.story.GetStoryMediator
 import com.example.storyapp.data.pref.UserModel
@@ -25,6 +27,7 @@ import retrofit2.Call
 open class RepositoryImpl(
     private val userPreference: UserPreference,
     private val apiService: ApiService,
+    private val storyDatabase:StoryDatabase,
     private val storyMediatorDatabase: StoryMediatorDatabase
 ):Repository {
 
@@ -63,6 +66,14 @@ open class RepositoryImpl(
         return apiService.getStoriesWithLocation()
     }
 
+    override fun deleteStoriesToDatabase() {
+        return storyDatabase.storyDao().deleteAll()
+    }
+    override fun saveStoriesToDatabase(story:StoryListEntity) {
+        return storyDatabase.storyDao().insertList(story)
+    }
+
+
     override fun uploadStory(
         file: MultipartBody.Part, description: RequestBody, lat: Float?, long: Float?
     ): Call<FileUploadResponse> {
@@ -74,9 +85,10 @@ open class RepositoryImpl(
         fun getInstance(
             userPreference: UserPreference,
             apiService: ApiService,
+            storyDatabase:StoryDatabase,
             storyMediatorDatabase: StoryMediatorDatabase
         ): RepositoryImpl = synchronized(this) {
-            RepositoryImpl(userPreference, apiService, storyMediatorDatabase)
+            RepositoryImpl(userPreference, apiService,storyDatabase, storyMediatorDatabase)
         }
     }
 }

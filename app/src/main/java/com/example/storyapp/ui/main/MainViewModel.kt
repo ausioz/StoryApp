@@ -21,7 +21,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainViewModel(private val repositoryImpl: RepositoryImpl, val application: Application) :
+class MainViewModel(private val repositoryImpl: RepositoryImpl) :
     ViewModel() {
 
     private val _isLoading = MutableLiveData<Boolean>()
@@ -33,7 +33,7 @@ class MainViewModel(private val repositoryImpl: RepositoryImpl, val application:
     private val _listStory = MutableLiveData<StoryResponse>()
     val listStory: LiveData<StoryResponse> = _listStory
 
-    val db: StoryDatabase = StoryDatabase.getInstance(application)
+//    val db: StoryDatabase = StoryDatabase.getInstance(application)
 
 
     fun getSession(): LiveData<UserModel> {
@@ -61,9 +61,9 @@ class MainViewModel(private val repositoryImpl: RepositoryImpl, val application:
                         _listStory.value = response.body()
 
                         viewModelScope.launch(Dispatchers.IO) {
-                            db.storyDao().deleteAll()
+                            repositoryImpl.deleteStoriesToDatabase()
                             _listStory.value?.listStory?.forEach { story ->
-                                db.storyDao().insertList(
+                                repositoryImpl.saveStoriesToDatabase(
                                     StoryListEntity(
                                         0, story.name, story.photoUrl, story.description
                                     )

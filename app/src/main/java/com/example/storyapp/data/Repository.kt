@@ -2,6 +2,7 @@ package com.example.storyapp.data
 
 import androidx.lifecycle.LiveData
 import androidx.paging.PagingData
+import com.example.storyapp.data.local.entity.StoryListEntity
 import com.example.storyapp.data.local.entity.StoryMediatorEntity
 import com.example.storyapp.data.pref.UserModel
 import com.example.storyapp.data.response.FileUploadResponse
@@ -22,6 +23,8 @@ interface Repository {
     fun register(name: String, email: String, password: String): Call<RegisterResponse>
     fun getStories(): LiveData<PagingData<StoryMediatorEntity>>
     fun getStoriesWithLocation(): Call<StoryResponse>
+    fun deleteStoriesToDatabase()
+    fun saveStoriesToDatabase(story: StoryListEntity)
     fun uploadStory(
         file: MultipartBody.Part, description: RequestBody, lat: Float?, long: Float?
     ): Call<FileUploadResponse>

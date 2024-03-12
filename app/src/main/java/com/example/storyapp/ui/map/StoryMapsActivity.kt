@@ -36,7 +36,7 @@ class StoryMapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityStoryMapsBinding
     private val viewModel by viewModels<MainViewModel> {
-        ViewModelFactory.getInstance(this, application)
+        ViewModelFactory.getInstance(this)
     }
     private val loadingDialog = LoadingDialogFragment()
     private val boundsBuilder = LatLngBounds.Builder()

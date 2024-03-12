@@ -25,7 +25,7 @@ import com.example.storyapp.ui.main.MainActivity
 
 class LoginActivity : AppCompatActivity() {
     private val viewModel by viewModels<LoginViewModel> {
-        ViewModelFactory.getInstance(this, application)
+        ViewModelFactory.getInstance(this)
     }
     private lateinit var binding: ActivityLoginBinding
     private val loadingDialog = LoadingDialogFragment()

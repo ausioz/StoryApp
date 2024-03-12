@@ -45,7 +45,7 @@ class UploadStoryActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityUploadStoryBinding
     private val viewModel by viewModels<UploadStoryViewModel> {
-        ViewModelFactory.getInstance(this, application)
+        ViewModelFactory.getInstance(this)
     }
     private var currentImageUri: Uri? = null
     private val loadingDialog = LoadingDialogFragment()
@@ -268,10 +268,10 @@ class UploadStoryActivity : AppCompatActivity() {
 
             val lat = if (binding.tvLatitude.text.toString() == getString(R.string.latitude)) {
                 null
-            } else binding.tvLatitude.text.toString().toFloat()
+            } else binding.tvLatitude.text.toString().substringAfter(":").toFloat()
             val long = if (binding.tvLongitude.text.toString() == getString(R.string.longitude)) {
                 null
-            } else binding.tvLongitude.text.toString().toFloat()
+            } else binding.tvLongitude.text.toString().substringAfter(":").toFloat()
 
             viewModel.getSession().observe(this) {
                 viewModel.uploadStory(multipartBody, requestBody, lat, long)

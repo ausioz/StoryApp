@@ -11,14 +11,14 @@ import com.example.storyapp.ui.story.upload.UploadStoryViewModel
 import com.example.storyapp.ui.user.login.LoginViewModel
 import com.example.storyapp.ui.user.register.RegisterViewModel
 
-class ViewModelFactory(private val repositoryImpl: RepositoryImpl, private val application: Application) :
+class ViewModelFactory(private val repositoryImpl: RepositoryImpl) :
     ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
             modelClass.isAssignableFrom(MainViewModel::class.java) -> {
-                MainViewModel(repositoryImpl, application) as T
+                MainViewModel(repositoryImpl) as T
             }
 
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
@@ -38,9 +38,9 @@ class ViewModelFactory(private val repositoryImpl: RepositoryImpl, private val a
     }
 
     companion object {
-        fun getInstance(context: Context, application: Application): ViewModelFactory {
+        fun getInstance(context: Context): ViewModelFactory {
               return synchronized(ViewModelFactory::class.java) {
-                        ViewModelFactory(Injection.provideRepository(context), application)
+                        ViewModelFactory(Injection.provideRepository(context))
                 }
         }
     }

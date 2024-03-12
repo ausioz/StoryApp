@@ -17,7 +17,6 @@ import androidx.test.filters.LargeTest
 import com.example.storyapp.R
 import com.example.storyapp.data.remote.ApiConfig
 import com.example.storyapp.util.EspressoIdlingResource
-import com.example.storyapp.utils.JsonConverter
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.hamcrest.CoreMatchers.allOf
@@ -70,7 +69,7 @@ class LoginActivityTest {
         onView(withId(R.id.loginButton)).perform(click())
 
         val mockResponse = MockResponse().setResponseCode(200)
-            .setBody(JsonConverter.readStringFromFile("login_success_response.json"))
+            .setBody(com.example.storyapp.utils.JsonConverter.readStringFromFile("login_success_response.json"))
         mockWebServer.enqueue(mockResponse)
         Thread.sleep(500)
         onView(withId(R.id.logout)).check(matches(isDisplayed()))

@@ -20,6 +20,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         testOptions {
             animationsDisabled = true
+            unitTests.isReturnDefaultValues = true
         }
     }
 
@@ -46,18 +47,19 @@ android {
 }
 
 dependencies {
-    androidTestImplementation ("androidx.test.espresso:espresso-intents:3.5.1")
-    implementation("androidx.test:runner:1.5.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+
     //mock web server
     androidTestImplementation("com.squareup.okhttp3:mockwebserver:4.9.3")
     androidTestImplementation("com.squareup.okhttp3:okhttp-tls:4.9.3")
 
     //test
-    androidTestImplementation("org.mockito:mockito-android:4.4.0")
-    androidTestImplementation("androidx.test:core-ktx:1.5.0")
-    androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
-    androidTestImplementation("androidx.arch.core:core-testing:2.2.0") // InstantTaskExecutorRule
+    androidTestImplementation ("androidx.test.espresso:espresso-intents:3.5.1")
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    testImplementation("org.mockito:mockito-core:4.4.0")
+//    testImplementation("org.mockito:mockito-inline:4.4.0")
+//    testImplementation("androidx.test:core-ktx:1.5.0")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    testImplementation("androidx.arch.core:core-testing:2.2.0") // InstantTaskExecutorRule
     implementation("androidx.test.espresso:espresso-idling-resource:3.5.1")
 
     implementation("androidx.room:room-paging:2.6.1")

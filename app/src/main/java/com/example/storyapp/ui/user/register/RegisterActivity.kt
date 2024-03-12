@@ -20,7 +20,7 @@ import com.example.storyapp.ui.welcome.WelcomeActivity
 
 class RegisterActivity : AppCompatActivity() {
     private val viewModel by viewModels<RegisterViewModel> {
-        ViewModelFactory.getInstance(this, application)
+        ViewModelFactory.getInstance(this)
     }
     private lateinit var binding: ActivityRegisterBinding
     private val loadingDialog = LoadingDialogFragment()
