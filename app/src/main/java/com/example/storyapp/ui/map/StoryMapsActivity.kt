@@ -131,7 +131,7 @@ class StoryMapsActivity : AppCompatActivity(), OnMapReadyCallback {
             }
 
             with(binding) {
-                tvUser.text = marker.id
+                tvUser.text = marker.title
                 tvDesc.text = marker.snippet
                 if (image == null) {
                     Glide.with(context).asBitmap().load(photo)
