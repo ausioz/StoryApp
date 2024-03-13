@@ -59,14 +59,13 @@ class GetStoryListAdapter:PagingDataAdapter<StoryMediatorEntity, GetStoryListAda
             override fun areItemsTheSame(
                 oldItem: StoryMediatorEntity, newItem: StoryMediatorEntity
             ): Boolean {
-                return oldItem == newItem
+                return oldItem.id == newItem.id
             }
 
-            @SuppressLint("DiffUtilEquals")
             override fun areContentsTheSame(
                 oldItem: StoryMediatorEntity, newItem: StoryMediatorEntity
             ): Boolean {
-                return oldItem == newItem
+                return oldItem.id == newItem.id
             }
         }
     }

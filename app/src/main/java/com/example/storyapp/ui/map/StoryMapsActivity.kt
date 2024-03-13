@@ -95,12 +95,8 @@ class StoryMapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 val marker = mMap.addMarker(
                     MarkerOptions().position(latLng).title(story.name).snippet(story.description)
                 )
-                mMap.addMarker(
-                    MarkerOptions().position(latLng).title(story.name).snippet(story.description)
-                )
                 photoUrl.add(story.photoUrl)
                 markerId.add(marker?.id)
-
                 boundsBuilder.include(latLng)
             }
             mMap.setInfoWindowAdapter(MarkerInfoWindowAdapter(this))
@@ -116,6 +112,7 @@ class StoryMapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
     }
+
     inner class MarkerInfoWindowAdapter(private val context: Context) :
         GoogleMap.InfoWindowAdapter {
 
@@ -126,18 +123,20 @@ class StoryMapsActivity : AppCompatActivity(), OnMapReadyCallback {
         private fun bind(marker: Marker) {
             val image = images[marker]
             var photo = ""
+
             markerId.forEachIndexed { index, value ->
                 when (marker.id) {
-                    value -> photo = photoUrl[index].toString()
+                    value -> {photo = photoUrl[index].toString()}
                 }
             }
 
             with(binding) {
-                tvUser.text = marker.title
+                tvUser.text = marker.id
                 tvDesc.text = marker.snippet
                 if (image == null) {
-                    Glide.with(context).asBitmap().load(photo).dontAnimate().into(getTarget(marker))
-
+                    Glide.with(context).asBitmap().load(photo)
+                        .placeholder(R.drawable.ic_place_holder).dontAnimate()
+                        .into(getTarget(marker))
                 } else {
                     ivPhoto.setImageBitmap(image)
                 }
@@ -177,6 +176,7 @@ class StoryMapsActivity : AppCompatActivity(), OnMapReadyCallback {
             return target
         }
     }
+
     private fun setMapStyle() {
         try {
             val success =
